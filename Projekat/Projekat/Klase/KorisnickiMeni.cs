@@ -35,13 +35,13 @@ namespace Projekat.Klase
                         ProveraPodataka();
                         break;
                     case "3":
-                        // HandleSingleInsert();
+                       // HandleSingleInsert();
                         break;
                     case "4":
-                        // HandleMultipleInserts();
+                       // HandleMultipleInserts();
                         break;
                     case "5":
-                        // HandleUpdate();
+                       // HandleUpdate();
                         break;
                     case "6":
                         //HandleDelete();
@@ -79,7 +79,7 @@ namespace Projekat.Klase
                         brojS++;
                     }
                 }
-            }
+            } 
             else
             {
                 Console.WriteLine("Nevalidan naziv fajla. Proverite format naziva fajla.");
