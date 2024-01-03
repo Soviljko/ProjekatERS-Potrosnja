@@ -10,16 +10,16 @@ namespace Projekat.Klase
 {
     public class XMLUvozPodataka : IUvozPodataka
     {
-        public List<UlazniPodaci> Uvezi(string filePath)
+        public List<UlazniPodaci> Uvezi(string putanja)
         {
-            if (filePath == null)
+            if (putanja == null)
             {
-                throw new ArgumentNullException(nameof(filePath), "File path cannot be null.");
+                throw new ArgumentNullException(nameof(putanja), "File path cannot be null.");
             }
 
-            if (!File.Exists(filePath))
+            if (!File.Exists(putanja))
             {
-                throw new FileNotFoundException($"File not found: {filePath}");
+                throw new FileNotFoundException($"File not found: {putanja}");
             }
 
             List<UlazniPodaci> uvezeniPodaci = new List<UlazniPodaci>();
@@ -27,9 +27,9 @@ namespace Projekat.Klase
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(filePath);
+                xmlDocument.Load(putanja);
 
-                XmlNodeList listaStavki = xmlDocument.SelectNodes("//STAVKA");
+                XmlNodeList listaStavki = xmlDocument.SelectNodes("//STAVKA")!;
 
                 if (listaStavki == null || listaStavki.Count == 0)
                 {
@@ -40,8 +40,8 @@ namespace Projekat.Klase
                 {
                     UlazniPodaci podatak = new UlazniPodaci
                     {
-                        Sat = int.Parse(stavkaNode.SelectSingleNode("SAT")?.InnerText),
-                        IznosPotrosnje = double.Parse(stavkaNode.SelectSingleNode("LOAD")?.InnerText),
+                        Sat = int.Parse(stavkaNode.SelectSingleNode("SAT")?.InnerText!),
+                        IznosPotrosnje = double.Parse(stavkaNode.SelectSingleNode("LOAD")?.InnerText!),
                         SifraGeoPodrucja = stavkaNode.SelectSingleNode("OBLAST")?.InnerText
                     };
 
@@ -49,13 +49,13 @@ namespace Projekat.Klase
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Greska prilikom uvoza XML-a: {ex.Message}");
             }
 
             return uvezeniPodaci;
-            
+
 
         }
     }

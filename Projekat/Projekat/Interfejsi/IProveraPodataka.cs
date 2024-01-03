@@ -10,6 +10,6 @@ namespace Projekat.Interfejsi
     // Interfejs za validaciju podataka
     public interface IProveraPodataka
     {
-        bool ValidateData(List<UlazniPodaci> data);
+        bool Validacija(List<UlazniPodaci> podaci, string imeFajla, string lokacija);
     }
 }
