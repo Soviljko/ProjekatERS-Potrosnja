@@ -12,6 +12,7 @@ namespace Projekat.Klase
     {
         private static readonly IUvozPodataka uvoz = new XMLUvozPodataka();
         private static readonly IProveraPodataka provera = new ValidatorPodataka();
+        private static readonly IUpisPodataka upis = new UpisUBazu();
         public void HandleKorisnickiMeni()
         {
             String answer;
@@ -78,6 +79,10 @@ namespace Projekat.Klase
                         Console.WriteLine(podatak);
                         brojS++;
                     }
+
+                    upis.WriteToDatabase(podaci, nazivFajla, DateTime.Now, Environment.CurrentDirectory);
+                    Console.WriteLine("Podaci uspesno upisanu u bazu.");
+
                 }
             } 
             else
