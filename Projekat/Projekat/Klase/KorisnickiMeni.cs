@@ -20,7 +20,7 @@ namespace Projekat.Klase
             {
                 Console.WriteLine();
                 Console.WriteLine("Odaberite zeljenu opciju:");
-                Console.WriteLine("1 - Uvoz i provera podataka");
+                Console.WriteLine("1 - Validacija,uvoz i upis podataka");
                 Console.WriteLine("2 - Ispis podataka");
                 Console.WriteLine("3 - Treca tacka");
                 Console.WriteLine("X - Izlazak iz menija");
@@ -80,8 +80,14 @@ namespace Projekat.Klase
                         brojS++;
                     }
 
-                    upis.WriteToDatabase(podaci, nazivFajla, DateTime.Now, Environment.CurrentDirectory);
-                    Console.WriteLine("Podaci uspesno upisanu u bazu.");
+                    if(upis.WriteToDatabase(podaci, nazivFajla, DateTime.Now, Environment.CurrentDirectory) == 0)
+                    {
+                        Console.WriteLine("Podaci uspesno upisanu u bazu.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Greska pri upisa podataka u bazu!");
+                    }
 
                 }
             } 

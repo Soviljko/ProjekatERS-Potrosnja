@@ -19,7 +19,7 @@ namespace Projekat.Klase
 
             if (!File.Exists(putanja))
             {
-                throw new FileNotFoundException($"File not found: {putanja}");
+                Console.WriteLine("Nije pronadjen fajl sa zadatim imenom");
             }
 
             List<UlazniPodaci> uvezeniPodaci = new List<UlazniPodaci>();
