@@ -13,7 +13,7 @@ namespace Projekat.Klase
     {
         public int WriteToDatabase(List<UlazniPodaci> data, string fileName, DateTime importTime, string importLocation)
         {
-            string xmlFilePath = $"Baza_{fileName}.xml";
+            string xmlFilePath = $"Baza_{fileName}";
 
             XmlDocument xmlDoc = new XmlDocument();
             XmlElement rootElement;

@@ -1,6 +1,7 @@
 ﻿using Projekat.Interfejsi;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ namespace Projekat.Klase
         private static readonly IUvozPodataka uvoz = new XMLUvozPodataka();
         private static readonly IProveraPodataka provera = new ValidatorPodataka();
         private static readonly IUpisPodataka upis = new UpisUBazu();
+        private static readonly IIspisPodataka ispis = new IspisPodataka();
         public void HandleKorisnickiMeni()
         {
             String answer;
@@ -33,7 +35,7 @@ namespace Projekat.Klase
                         PrikazSvih();
                         break;
                     case "2":
-                        ProveraPodataka();
+                        IspisPodataka();
                         break;
                     case "3":
                        // HandleSingleInsert();
@@ -53,9 +55,26 @@ namespace Projekat.Klase
             } while (!answer.ToUpper().Equals("X"));
         }
 
-        private void ProveraPodataka()
+        private void IspisPodataka()
         {
-            throw new NotImplementedException();
+            DateTime selectedDate;
+            string selectedGeoArea;
+
+            Console.Write("Unesite datum (YYYY-MM-DD): ");
+            string inputDate = Console.ReadLine();
+
+            Console.Write("Unesite šifru geo-područja (npr. VOJ): ");
+            selectedGeoArea = Console.ReadLine();
+
+            if (DateTime.TryParseExact(inputDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out selectedDate))
+            {
+                // Poziv metode za ispis podataka
+                ispis.PrintConsumptionData(selectedDate, selectedGeoArea);
+            }
+            else
+            {
+                Console.WriteLine("Neispravan format datuma. Molimo vas da unesete datum u formatu YYYY-MM-DD.");
+            }
         }
 
         private void PrikazSvih()
