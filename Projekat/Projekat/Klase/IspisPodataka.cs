@@ -54,28 +54,37 @@ namespace Projekat.Klase
                 Console.WriteLine($"{sat}".PadRight(5) + $"{prognoza}".PadRight(25) + $"{ostvareno}".PadRight(25) + $"{odstupanje}%");
             }
 
+            // Proveri da li CSV fajl već postoji
+            if (File.Exists(csvFilePath))
+            {
+                Console.WriteLine("\nIzvestaj za izabrani datum je vec prethodno bio eksportovan u CSV fajl, proverite folder.");
+                return;
+            }
+
+            // Postavi CultureInfo na InvariantCulture za pravilno formatiranje decimalnih brojeva i separatora između vrednosti u CSV fajlu
+            CultureInfo ci = CultureInfo.InvariantCulture;
+
             // Kreiraj CSV fajl
-            // Kreiraj CSV fajl
-            using (StreamWriter writer = new StreamWriter(csvFilePath))
+            using (StreamWriter writer = new StreamWriter(csvFilePath, false, Encoding.UTF8))
             {
                 // Header
-                writer.WriteLine("Sat,Prognozirana Potrošnja,Ostvarena Potrošnja,Rel. Proc. Odstupanje");
+                writer.WriteLine("Sat;Prognozirana Potrošnja;Ostvarena Potrošnja;Rel. Proc. Odstupanje");
 
                 // Podaci
                 for (int i = 0; i < progEntries.Count; i++)
                 {
                     int sat = int.Parse(progEntries[i].Attributes["Sat"].Value);
-                    double prognoza = double.Parse(progEntries[i].Attributes["Potrosnja"].Value);
-                    double ostvareno = double.Parse(ostvEntries[i].Attributes["Potrosnja"].Value);
+                    double prognoza = double.Parse(progEntries[i].Attributes["Potrosnja"].Value, ci);
+                    double ostvareno = double.Parse(ostvEntries[i].Attributes["Potrosnja"].Value, ci);
 
-                    double odstupanje = ((ostvareno - prognoza) / ostvareno) * 100;
+                    double odstupanje = Math.Abs(((ostvareno - prognoza) / ostvareno) * 100);
 
                     // Upisivanje reda u CSV fajl
-                    writer.WriteLine($"{sat},{prognoza},{ostvareno},{odstupanje.ToString(CultureInfo.InvariantCulture)}%");
+                    writer.WriteLine($"{sat};{prognoza};{ostvareno};{odstupanje.ToString("F2", ci)}%");
                 }
             }
 
-            Console.WriteLine($"Podaci su uspešno izvezeni u CSV fajl: {csvFilePath}");
+            Console.WriteLine($"\nPodaci su uspešno izvezeni u CSV fajl: {csvFilePath}");
 
         }
     }
