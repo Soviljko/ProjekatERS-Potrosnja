@@ -15,6 +15,8 @@ namespace Projekat.Klase
         private static readonly IProveraPodataka provera = new ValidatorPodataka();
         private static readonly IUpisPodataka upis = new UpisUBazu();
         private static readonly IIspisPodataka ispis = new IspisPodataka();
+        private static readonly IUvozRegiona uvozRegiona = new UvozXMLReg();
+        private static readonly IRegioni regioni = new Region();
         public void HandleKorisnickiMeni()
         {
             String answer;
@@ -85,6 +87,7 @@ namespace Projekat.Klase
             if (ValidnoIme(nazivFajla))
             {
                 List<UlazniPodaci> podaci = uvoz.Uvezi(putanja);
+                List<UlazRegiona> regije = uvozRegiona.Uvezi("Regioni.xml");
                 if (provera.Validacija(podaci, nazivFajla, Environment.CurrentDirectory))
                 {
                     Console.WriteLine("Podaci su uspesno uvezeni.Ispis:\n");
@@ -106,6 +109,33 @@ namespace Projekat.Klase
                     else
                     {
                         Console.WriteLine("Greska pri upisa podataka u bazu!");
+                    }
+
+                    Console.WriteLine("***************************");
+                    
+                    foreach(UlazniPodaci pod in podaci)
+                    {
+                        bool flag = true;
+                        foreach (UlazRegiona reg in regije) { 
+                            if(reg.SifraRegiona == pod.SifraGeoPodrucja) { flag = false; break; }
+                        }
+                        if (flag)
+                        {
+                            Console.WriteLine("Sifra regije:{0}", pod.SifraGeoPodrucja);
+                            regioni.UnesiNovuRegiju(pod.SifraGeoPodrucja);
+                            regije = uvozRegiona.Uvezi("Regioni.xml");
+                        }
+                    }
+                    {
+
+                        
+                    }
+                    
+
+                    Console.WriteLine("**********************");
+                    foreach (UlazRegiona reg in regije) {
+                        Console.WriteLine("Sifra:{0}", reg.SifraRegiona);
+                        Console.WriteLine("Naziv:{0}", reg.NazivRegiona);
                     }
 
                 }
