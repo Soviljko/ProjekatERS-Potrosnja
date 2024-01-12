@@ -17,10 +17,19 @@ namespace Projekat.Klase
                 throw new ArgumentNullException(nameof(putanja), "File path cannot be null.");
             }
 
-            if (!File.Exists(putanja))
-            {
-                Console.WriteLine("Nije pronadjen fajl sa zadatim imenom");
-            }
+            // try
+            //{
+                if (!File.Exists(putanja))
+                {
+                    Console.WriteLine("Nije pronadjen fajl sa zadatim imenom");
+                    throw new FileNotFoundException($"File not found: {putanja}");
+                
+                }
+            //}
+            //catch(FileNotFoundException ex)
+            //{
+            //    Console.WriteLine($"{ex.Message}");
+            //}
 
             List<UlazniPodaci> uvezeniPodaci = new List<UlazniPodaci>();
 

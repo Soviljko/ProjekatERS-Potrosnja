@@ -26,7 +26,6 @@ namespace Projekat.Klase
                 Console.WriteLine("Odaberite zeljenu opciju:");
                 Console.WriteLine("1 - Validacija,uvoz i upis podataka");
                 Console.WriteLine("2 - Ispis podataka");
-                Console.WriteLine("3 - Treca tacka");
                 Console.WriteLine("X - Izlazak iz menija");
 
                 answer = Console.ReadLine()!;
@@ -39,19 +38,13 @@ namespace Projekat.Klase
                     case "2":
                         IspisPodataka();
                         break;
-                    case "3":
-                       // HandleSingleInsert();
+                    case "x":
                         break;
-                    case "4":
-                       // HandleMultipleInserts();
+                    case "X":
                         break;
-                    case "5":
-                       // HandleUpdate();
+                    default:
+                        Console.WriteLine("\nUnesite opciju iz menija!");
                         break;
-                    case "6":
-                        //HandleDelete();
-                        break;
-
                 }
 
             } while (!answer.ToUpper().Equals("X"));

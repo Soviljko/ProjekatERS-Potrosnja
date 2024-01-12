@@ -38,13 +38,11 @@ namespace Projekat.Klase
                 nazivElement.InnerText = imeReg;
                 newRegijaElement.AppendChild(nazivElement);
 
-                // Append the new REGIJA element to the root element
                 xmlDoc.DocumentElement?.AppendChild(newRegijaElement);
 
-                // Save the modified XML document back to the file
                 xmlDoc.Save(ime);
 
-                Console.WriteLine("Data appended to the existing XML file successfully.");
+                Console.WriteLine("uspesno upisani podaci za region u XML fajl.");
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
