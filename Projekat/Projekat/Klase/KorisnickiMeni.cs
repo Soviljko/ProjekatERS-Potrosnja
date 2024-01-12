@@ -54,6 +54,13 @@ namespace Projekat.Klase
         {
             DateTime selectedDate;
             string selectedGeoArea;
+            List<UlazRegiona> regs = uvozRegiona.Uvezi("Regioni.xml");
+
+            Console.WriteLine("Vase opcije za regione su: ");
+            foreach (UlazRegiona reg in regs) {
+                Console.WriteLine("Region:{0} Sifra:{1}", reg.NazivRegiona, reg.SifraRegiona);
+            }
+            Console.WriteLine("***************************");
 
             Console.Write("Unesite datum (YYYY-MM-DD): ");
             string inputDate = Console.ReadLine();
